@@ -13,7 +13,7 @@
         public function consulta() {
             $con = "SELECT p.*, m.nombre AS marca, un.nombre AS unidad_med FROM producto p
                     INNER JOIN marca m ON p.FO_marca = m.id_marca
-                    INNER JOIN unidad_medida un ON p.FO_unidad = un.id_unidad            
+                    INNER JOIN unidad_medida un ON p.FO_unidad = un.id_unidad
                     ORDER BY p.id_producto";
             $res = mysqli_query($this->conexion, $con);
             $vec = [];
@@ -24,10 +24,10 @@
         }
 
         public function insertar($params) {
-            $ins = "INSERT INTO producto(nombre, FO_marca, cantidad_producto, medida, FO_unidad, precio_venta, fecha_venc) 
-                    VALUES('$params->nombre', '$params->FO_marca', '$params->cantidad_producto', '$params->medida', 
-                    '$params->FO_unidad', '$params->precio_venta', '$params->fecha_venc')";
-            mysqli_query( $this->conexion, $ins) or die('el producto no se ha podido almacenar');
+            $ins = "INSERT INTO producto(id_producto,nombre,FO_marca,cantidad_producto,medida,FO_unidad,precio_venta,fecha_venc)
+            VALUES('$params->id_producto','$params->nombre','$params->FO_marca','$params->cantidad_producto','$params->medida',
+            '$params->FO_unidad','$params->precio_venta','$params->fecha_venc')";
+            mysqli_query($this->conexion, $ins) or die('el producto no se ha podido almacenar');
             $vec = [];
             $vec['resultado'] = "OK";
             $vec['mensaje'] = "El producto ha sido almacenado";
@@ -44,10 +44,10 @@
         }
 
         public function editar($id, $params) {
-            $editar = "UPDATE producto SET nombre = '$params->nombre', FO_marca = '$params->FO_marca', 
-                       cantidad_producto = '$params->cantidad_producto', medida = '$params->medida', 
-                       FO_unidad = '$params->FO_unidad', precio_venta = '$params->precio_venta', 
-                       fecha_venc = '$params->fecha_venc' 
+            $editar = "UPDATE producto SET id_producto = '$params->id_producto', nombre = '$params->nombre', 
+                       FO_marca = '$params->FO_marca', cantidad_producto = '$params->cantidad_producto', 
+                       medida = '$params->medida', FO_unidad = '$params->FO_unidad', 
+                       precio_venta = '$params->precio_venta', fecha_venc = '$params->fecha_venc' 
                        WHERE id_producto = $id";
             mysqli_query($this->conexion, $editar) or die('el producto no se ha podido actualizar');
             $vec = [];
@@ -57,6 +57,7 @@
         }
 
         public function filtrar($valor) {
+            $valor =mysqli_real_escape_string($this->conexion, $valor) ;
             $filtro = "SELECT p.*, m.nombre AS marca, un.nombre AS unidad_med FROM producto p
                        INNER JOIN marca m ON p.FO_marca = m.id_marca
                        INNER JOIN unidad_medida un ON p.FO_unidad = un.id_unidad 
@@ -64,7 +65,7 @@
                        OR m.nombre LIKE '%$valor%'";
             $res=mysqli_query($this->conexion, $filtro) or die('El producto no se ha podido encontrar');
             $vec = [];
-            while($row=mysqli_fetch_array($res)) {
+            while($row=mysqli_fetch_array($res, MYSQLI_ASSOC)) {
                 $vec[] = $row;
             }
             return $vec;

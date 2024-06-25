@@ -11,12 +11,11 @@
 
         //metodos generales
         public function consulta() {
-            $con = "SELECT d.*, v.id_venta AS venta, u.nombre AS vendedor, vp.FO_producto, p.nombre AS producto
+            $con = "SELECT d.*, v.id_venta AS venta, u.nombre AS vendedor, p.nombre AS producto
                     FROM devolucion d
-                    INNER JOIN venta v ON d.FO_venta = v.id_venta 
-                    INNER JOIN usuario u ON d.FO_vendedor = u.id_usuario 
-                    INNER JOIN vinculo_v_p vp ON d.FO_producto = vp.FO_producto
-                    INNER JOIN producto p ON vp.FO_producto = p.id_producto
+                    INNER JOIN venta v ON d.FO_venta = v.id_venta
+                    INNER JOIN usuario u ON d.FO_vendedor = u.id_usuario                    
+                    INNER JOIN producto p ON d.FO_producto = p.id_producto
                     ORDER BY d.fecha";
             $res = mysqli_query($this->conexion, $con);
             $vec = [];
@@ -63,12 +62,11 @@
         }
 
         public function filtrar($valor) {
-            $filtro = "SELECT d.*, v.id_venta AS venta, u.nombre AS vendedor, vp.FO_producto, p.nombre AS producto
+            $filtro = "SELECT d.*, v.id_venta AS venta, u.nombre AS vendedor, p.nombre AS producto
                        FROM devolucion d
                        INNER JOIN venta v ON d.FO_venta = v.id_venta 
-                       INNER JOIN usuario u ON d.FO_vendedor = u.id_usuario 
-                       INNER JOIN vinculo_v_p vp ON d.FO_producto = vp.FO_producto
-                       INNER JOIN producto p ON vp.FO_producto = p.id_producto
+                       INNER JOIN usuario u ON d.FO_vendedor = u.id_usuario
+                       INNER JOIN producto p ON d.FO_producto = p.id_producto
                        WHERE d.id_devolucion LIKE '%$valor%' OR d.fecha LIKE '%$valor%' 
                        OR v.id_venta LIKE '%$valor%' OR u.nombre LIKE '%$valor%'";
             $res=mysqli_query($this->conexion, $filtro) or die('la devolución no se ha podido encontrar');

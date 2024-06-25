@@ -50,6 +50,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

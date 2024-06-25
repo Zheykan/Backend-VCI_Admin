@@ -16,10 +16,11 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"FO_proveedor":"92394297","subtotal":"84000000",
-            "impuestos":"16000000","total":"100000000"}' ;
+            //$json= '{"FO_proveedor":"92394297","fecha_adq":"2024-01-24",
+            //"lista_prod":"7,9","cantidad_adq":"2,2","preciop_compra":"280000,340000",
+            //"subtotal":"10416000","impuestos":"1984000","total":"12400000"}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -32,10 +33,11 @@
         break ;
         case 'editar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"FO_proveedor":"92394297","subtotal":"8400000",
-            "impuestos":"1600000","total":"10000000"}' ;
+            //$json= '{"FO_proveedor":"92394297","fecha_adq":"2024-01-24",
+            //"lista_prod":"7,9","cantidad_adq":"2,2","preciop_compra":"280000,340000",
+            //"subtotal":"1041600","impuestos":"198400","total":"1240000"}' ;
             $params = json_decode($json) ;
             //parametro de prueba: &id=1239
             $id = $_GET['id'] ;
@@ -50,6 +52,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

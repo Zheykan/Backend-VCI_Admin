@@ -23,9 +23,11 @@
         }
 
         public function insertar($params) {
-            $ins = "INSERT INTO compra(FO_proveedor, subtotal, impuestos, total) 
-                    VALUES('$params->FO_proveedor', '$params->subtotal', 
-                    '$params->impuestos', '$params->total')";
+            $ins = "INSERT INTO compra(FO_proveedor,fecha_adq,lista_prod,cantidad_adq,
+                    preciop_compra,subtotal,impuestos,total) 
+                    VALUES('$params->FO_proveedor','$params->fecha_adq','$params->lista_prod',
+                    '$params->cantidad_adq','$params->preciop_compra','$params->subtotal',
+                    '$params->impuestos','$params->total')";
             mysqli_query( $this->conexion, $ins) or die('la compra no se ha podido almacenar');
             $vec = [];
             $vec['resultado'] = "OK";
@@ -43,7 +45,9 @@
         }
 
         public function editar($id, $params) {
-            $editar = "UPDATE compra SET FO_proveedor = '$params->FO_proveedor', subtotal = '$params->subtotal', 
+            $editar = "UPDATE compra SET FO_proveedor = '$params->FO_proveedor', fecha_adq = '$params->fecha_adq',
+                       lista_prod = '$params->lista_prod', cantidad_adq = '$params->cantidad_adq', 
+                       preciop_compra = '$params->preciop_compra', subtotal = '$params->subtotal', 
                        impuestos = '$params->impuestos', total = '$params->total'
                        WHERE id_compra = $id";
             mysqli_query($this->conexion, $editar) or die('la compra no se ha podido actualizar');

@@ -16,10 +16,10 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
-            "correo":"caro_nestor_1987@gmail.com","rol":"Gestor de Bodega","caja":""}' ;
+            //$json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
+            //"correo":"caro_nestor_1987@gmail.com","rol":"2","caja":""}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -32,11 +32,11 @@
         break ;
         case 'editar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
-            "correo":"caro_nestor_1987@gmail.com","rol":"Soporte Tecnico","caja":""}' ;
-            $params = json_decode($json) ;
+            //$json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
+            //"correo":"caro_nestor_1987@gmail.com","rol":"4","caja":""}' ;
+            //$params = json_decode($json) ;
             //parametro de prueba: &id=3
             $id = $_GET['id'] ;
             $veconsulta = $usuario->editar($id, $params) ;
@@ -50,6 +50,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

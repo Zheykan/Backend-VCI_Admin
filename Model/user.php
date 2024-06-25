@@ -11,7 +11,9 @@
 
         //metodos generales
         public function consulta() {
-            $con = "SELECT * FROM usuario ORDER BY nombre";
+            $con = "SELECT u.*, r.rol AS rol FROM usuario u 
+                    INNER JOIN rol r ON u.FO_rol = r.id_rol 
+                    ORDER BY nombre";
             $res = mysqli_query($this->conexion, $con);
             $vec = [];
             while ($row = mysqli_fetch_array($res)) {
@@ -21,9 +23,9 @@
         }
 
         public function insertar($params) {
-            $ins = "INSERT INTO usuario(nombre, contrasenia, telefono, correo, rol, caja)
-            VALUES('$params->nombre', '$params->contrasenia', '$params->telefono', '$params->correo', 
-            '$params->rol', '$params->caja')";
+            $ins = "INSERT INTO usuario(nombre, contrasenia, telefono, correo, FO_rol, caja)
+            VALUES('$params->nombre', SHA1('$params->contrasenia'), '$params->telefono', '$params->correo', 
+            '$params->FO_rol', '$params->caja')";
             mysqli_query( $this->conexion, $ins) or die('el usuario no se ha podido almacenar');
             $vec = [];
             $vec['resultado'] = "OK";
@@ -42,8 +44,8 @@
 
         public function editar($id, $params) {
             $editar = "UPDATE usuario SET nombre = '$params->nombre', 
-                       contrasenia = '$params->contrasenia', telefono = '$params->telefono', 
-                       correo = '$params->correo', rol = '$params->rol', caja = '$params->caja' 
+                       contrasenia = SHA1('$params->contrasenia'), telefono = '$params->telefono', 
+                       correo = '$params->correo', FO_rol = '$params->rol', caja = '$params->caja' 
                        WHERE id_usuario = $id";
             mysqli_query($this->conexion, $editar) or die('el usuario no se ha podido actualizar');
             $vec = [];
@@ -53,7 +55,9 @@
         }
 
         public function filtrar($valor) {
-            $filtro = "SELECT * FROM usuario WHERE nombre LIKE '%$valor%'";
+            $filtro = "SELECT u.*, r.rol AS rol FROM usuario u 
+                       INNER JOIN rol r ON u.FO_rol = r.id_rol 
+                       WHERE nombre LIKE '%$valor%' OR r.rol LIKE '%$valor%'";
             $res=mysqli_query($this->conexion, $filtro) or die('el usuario no se ha podido encontrar');
             $vec = [];
             while($row=mysqli_fetch_array($res)) {

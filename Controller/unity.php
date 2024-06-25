@@ -16,9 +16,9 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"nombre":"m"}' ;
+            //$json= '{"nombre":"m"}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -48,6 +48,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

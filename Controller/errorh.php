@@ -16,10 +16,10 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json = '{"id_errorh":"423","nombre":"Error FATAL de base de datos",
-                "descripcion":"La base de datos se encuentra corrupta."}' ;
+            //$json = '{"id_errorh":"423","nombre":"Error FATAL de base de datos",
+            //    "descripcion":"La base de datos se encuentra corrupta."}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -32,10 +32,10 @@
         break ;
         case 'editar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json = '{"id_errorh":"423","nombre":"Error de configuración",
-            "descripcion":"La ruta no es valida para alojar la carpeta home."}' ;
+            //$json = '{"id_errorh":"423","nombre":"Error de configuración",
+            //"descripcion":"La ruta no es valida para alojar la carpeta home."}' ;
             $params = json_decode($json) ;
             //parametro de prueba: &id=423
             $id = $_GET['id'] ;
@@ -50,6 +50,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

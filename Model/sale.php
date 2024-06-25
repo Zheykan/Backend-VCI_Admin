@@ -24,9 +24,11 @@
         }
 
         public function insertar($params) {
-            $ins = "INSERT INTO venta(fecha, FO_usuario_vendedor, FO_cliente, subtotal, impuestos, total) 
+            $ins = "INSERT INTO venta(fecha, FO_usuario_vendedor, FO_cliente, productos_venta, 
+                    cantidad_venta, subtotal, impuestos, total) 
                     VALUES('$params->fecha', '$params->FO_usuario_vendedor', '$params->FO_cliente', 
-                    '$params->subtotal', '$params->impuestos', '$params->total')";
+                    '$params->productos_venta', '$params->cantidad_venta', '$params->subtotal', 
+                    '$params->impuestos', '$params->total')";
             mysqli_query( $this->conexion, $ins) or die('la venta no se ha podido almacenar');
             $vec = [];
             $vec['resultado'] = "OK";
@@ -45,7 +47,8 @@
 
         public function editar($id, $params) {
             $editar = "UPDATE venta SET fecha = '$params->fecha', FO_usuario_vendedor = '$params->FO_usuario_vendedor', 
-                       FO_cliente = '$params->FO_cliente', subtotal = '$params->subtotal', 
+                       FO_cliente = '$params->FO_cliente', productos_venta = '$params->productos_venta', 
+                       cantidad_venta = '$params->cantidad_venta', subtotal = '$params->subtotal', 
                        impuestos = '$params->impuestos', total = '$params->total'
                        WHERE id_venta = $id";
             mysqli_query($this->conexion, $editar) or die('la venta no se ha podido actualizar');

@@ -16,11 +16,11 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"id_proveedor_nit":"910228545","razon_social":"Lacteos Fascenda",
-            "contacto":"Allison Rojas","telefono":"776-55873","correo":"distribuciones@fascenda.com",
-            "direccion":"Direccion #","FO_ciudad":"5"}' ;
+            //$json= '{"id_proveedor_nit":"910228545","razon_social":"Lacteos Fascenda",
+            //"contacto":"Allison Rojas","telefono":"776-55873","correo":"distribuciones@fascenda.com",
+            //"direccion":"Direccion #","FO_ciudad":"5"}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -33,11 +33,11 @@
         break ;
         case 'editar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"id_proveedor_nit":"910228545","razon_social":"Lacteos Fascenda",
-            "contacto":"Carlos Porras","telefono":"786-23873","correo":"distribuciones@fascenda.com",
-            "direccion":"Direccion #4","FO_ciudad":"13"}' ;
+            //$json= '{"id_proveedor_nit":"910228545","razon_social":"Lacteos Fascenda",
+            //"contacto":"Carlos Porras","telefono":"786-23873","correo":"distribuciones@fascenda.com",
+            //"direccion":"Direccion #4","FO_ciudad":"13"}' ;
             $params = json_decode($json) ;
             //parametro de prueba: &id=910228545
             $id = $_GET['id'] ;
@@ -52,6 +52,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>

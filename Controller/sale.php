@@ -16,10 +16,11 @@
         break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"fecha":"2024-05-23","FO_usuario_vendedor":"2","FO_cliente":"91886754",
-            "subtotal":"329280","impuestos":"62720","total":"392000"}' ;
+            //$json= '{"fecha":"2024-05-23","FO_usuario_vendedor":"2","FO_cliente":"91886754",
+            //"productos_venta":"1,2,3","cantidad_venta":"1,1,1","subtotal":"329280",
+            //"impuestos":"62720","total":"392000"}' ;
             $params = json_decode($json) ;
             //Respuesta de parametros por consola
             //print_r($params) ;
@@ -32,10 +33,11 @@
         break ;
         case 'editar':
             //siempre activa, desactivar al realizar una prueba
-            //$json = file_get_contents('php://input') ;
+            $json = file_get_contents('php://input') ;
             //parametros prueba json
-            $json= '{"fecha":"2024-05-22","FO_usuario_vendedor":"2","FO_cliente":"91886754",
-            "subtotal":"329280","impuestos":"62720","total":"392000"}' ;
+            //$json= '{"fecha":"2024-05-22","FO_usuario_vendedor":"2","FO_cliente":"91886754",
+            //"productos_venta":"1,2,3","cantidad_venta":"1,1,1","subtotal":"329280",
+            //"impuestos":"62720","total":"392000"}' ;
             $params = json_decode($json) ;
             //parametro de prueba: &id=301
             $id = $_GET['id'] ;
@@ -50,6 +52,6 @@
     }
 
     $datosjs = json_encode($veconsulta) ;
-    echo $datosjs ;
     header('Content-Type: application/json') ;
+    echo $datosjs ;
 ?>
