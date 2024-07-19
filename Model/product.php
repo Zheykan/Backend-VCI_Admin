@@ -56,6 +56,15 @@
             return $vec;
         }
 
+        public function stock($id, $params) {
+            $stock = "UPDATE producto SET cantidad_producto = '$params->cantidad_producto' WHERE id_producto = $id";
+            mysqli_query($this->conexion, $stock) or die('el producto no se ha podido actualizar');
+            $vec = [];
+            $vec['resultado'] = "OK";
+            $vec['mensaje'] = "El stock ha sido actualizado";
+            return $vec;
+        }
+
         public function filtrar($valor) {
             $valor =mysqli_real_escape_string($this->conexion, $valor) ;
             $filtro = "SELECT p.*, m.nombre AS marca, un.nombre AS unidad_med FROM producto p

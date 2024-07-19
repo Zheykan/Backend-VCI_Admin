@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2024 a las 07:29:38
+-- Tiempo de generación: 19-07-2024 a las 14:50:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -86,23 +86,19 @@ CREATE TABLE `compra` (
   `FO_proveedor` int(11) DEFAULT NULL,
   `fecha_adq` date NOT NULL,
   `lista_prod` longtext NOT NULL,
-  `cantidad_adq` longtext NOT NULL,
-  `preciop_compra` longtext NOT NULL,
-  `subtotal` float NOT NULL,
-  `impuestos` float NOT NULL,
-  `total` float NOT NULL
+  `total` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`id_compra`, `FO_proveedor`, `fecha_adq`, `lista_prod`, `cantidad_adq`, `preciop_compra`, `subtotal`, `impuestos`, `total`) VALUES
-(1234, 92394297, '2024-04-28', '3,4', '15,20', '8200,2300', 141960, 27040, 169000),
-(1235, 90066599, '2022-05-12', '5,6', '10,5', '150000,100000', 1680000, 320000, 2000000),
-(1236, 91135464, '2023-08-14', '8,10', '30,8', '650,80000', 537600, 102400, 659500),
-(1237, 91737891, '2022-03-03', '7,9', '10,5', '180000,300000', 2772000, 528000, 3300000),
-(1238, 90034567, '2024-03-06', '1,2', '22,30', '6800,900', 148344, 28256, 176600);
+INSERT INTO `compra` (`id_compra`, `FO_proveedor`, `fecha_adq`, `lista_prod`, `total`) VALUES
+(1234, 92394297, '2024-04-28', 'a:2:{i:0;a:4:{i:0;s:25:\"Queso Sabana 450gr Alpina\";i:1;i:15;i:2;i:8200;i:3;i:123000;}i:1;a:4:{i:0;s:29:\"Caldo Maggi caja 132gr Nestle\";i:1;i:20;i:2;i:2300;i:3;i:46000;}}', 169000),
+(1235, 90066599, '2022-05-12', 'a:2:{i:0;a:4:{i:0;s:28:\"Tennis Runner 39talla Adidas\";i:1;i:10;i:2;i:150000;i:3;i:1500000;}i:1;a:4:{i:0;s:29:\"Camisa CampShire 1M NorthFace\";i:1;i:5;i:2;i:100000;i:3;i:500000;}}', 2000000),
+(1236, 91135464, '2023-08-14', 'a:2:{i:0;a:4:{i:0;s:31:\"Boligrafo semiGel 7mm Offi-Esco\";i:1;i:30;i:2;i:650;i:3;i:19500;}i:1;a:4:{i:0;s:27:\"Morral JeanBook 12lt  Norma\";i:1;i:8;i:2;i:80000;i:3;i:640000;}}', 659500),
+(1237, 91737891, '2022-03-03', 'a:2:{i:0;a:4:{i:0;s:22:\"Jean 510 28talla Levis\";i:1;i:10;i:2;i:180000;i:3;i:1800000;}i:1;a:4:{i:0;s:38:\"zapato longonni 1210 40talla La Corona\";i:1;i:5;i:2;i:300000;i:3;i:1500000;}}', 3300000),
+(1238, 90034567, '2024-03-06', 'a:2:{i:0;a:4:{i:0;s:30:\"Chocolate Corona 500gr Nutresa\";i:1;i:22;i:2;i:6800;i:3;i:149600;}i:1;a:4:{i:0;s:25:\"Agua Brisa 600ml CocaCola\";i:1;i:30;i:2;i:900;i:3;i:27000;}}', 176600);
 
 -- --------------------------------------------------------
 
@@ -145,13 +141,18 @@ CREATE TABLE `devolucion` (
   `FO_venta` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `FO_vendedor` int(11) NOT NULL,
-  `FO_producto` int(11) NOT NULL,
-  `cantidad_dev` int(11) NOT NULL,
-  `descripcion` longtext NOT NULL,
-  `subtotal` float NOT NULL,
-  `impuestos` float NOT NULL,
+  `lista_dev` longtext DEFAULT NULL,
   `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `devolucion`
+--
+
+INSERT INTO `devolucion` (`id_devolucion`, `FO_venta`, `fecha`, `FO_vendedor`, `lista_dev`, `total`) VALUES
+(1, 301, '2024-07-15', 2, 'a:1:{i:0;a:5:{i:0;s:1:\"7\";i:1;s:23:\"Jean 510 28 talla Levis\";i:2;i:1;i:3;i:280000;i:4;i:280000;}}', 280000),
+(2, 300, '2024-07-15', 2, 'a:2:{i:0;a:5:{i:0;s:1:\"1\";i:1;s:31:\"Chocolate Corona 500 gr Nutresa\";i:2;i:1;i:3;i:10000;i:4;i:10000;}i:1;a:5:{i:0;s:1:\"2\";i:1;s:26:\"Agua Brisa 600 ml CocaCola\";i:2;i:1;i:3;i:2100;i:4;i:2100;}}', 12100),
+(3, 302, '2024-07-17', 2, 'a:2:{i:0;a:5:{i:0;s:1:\"8\";i:1;s:33:\"Boligrafo semi Gel 7 mm Offi-Esco\";i:2;i:1;i:3;i:1200;i:4;i:1200;}i:1;a:5:{i:0;s:1:\"7\";i:1;s:23:\"Jean 510 28 talla Levis\";i:2;i:1;i:3;i:280000;i:4;i:280000;}}', 281200);
 
 -- --------------------------------------------------------
 
@@ -350,19 +351,20 @@ CREATE TABLE `venta` (
   `fecha` date NOT NULL,
   `FO_usuario_vendedor` int(11) DEFAULT NULL,
   `FO_cliente` int(11) DEFAULT NULL,
-  `productos_venta` longtext NOT NULL,
-  `cantidad_venta` longtext NOT NULL,
-  `subtotal` float NOT NULL,
-  `impuestos` float NOT NULL,
-  `total` float NOT NULL
+  `productos_venta` longtext DEFAULT NULL,
+  `total` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`id_venta`, `fecha`, `FO_usuario_vendedor`, `FO_cliente`, `productos_venta`, `cantidad_venta`, `subtotal`, `impuestos`, `total`) VALUES
-(300, '2024-06-04', 2, 91886754, '1, 2, 3', '1,1,1', 21084, 4016, 25100);
+INSERT INTO `venta` (`id_venta`, `fecha`, `FO_usuario_vendedor`, `FO_cliente`, `productos_venta`, `total`) VALUES
+(300, '2024-06-04', 1000, 91886754, 'a:3:{i:0;a:5:{i:0;s:1:\"1\";i:1;s:31:\"Chocolate Corona 500 gr Nutresa\";i:2;i:1;i:3;i:10000;i:4;i:10000;}i:1;a:5:{i:0;s:1:\"2\";i:1;s:26:\"Agua Brisa 600 ml CocaCola\";i:2;i:3;i:3;i:2100;i:4;i:6300;}i:2;a:5:{i:0;s:1:\"3\";i:1;s:26:\"Queso Sabana 450 gr Alpina\";i:2;i:2;i:3;i:12000;i:4;i:24000;}}', 40300),
+(301, '2024-07-05', 1000, 1053611645, 'a:1:{i:0;a:5:{i:0;s:1:\"7\";i:1;s:23:\"Jean 510 28 talla Levis\";i:2;i:2;i:3;i:280000;i:4;i:560000;}}', 560000),
+(302, '2024-07-07', 2, 91886754, 'a:2:{i:0;a:5:{i:0;s:1:\"7\";i:1;s:23:\"Jean 510 28 talla Levis\";i:2;i:2;i:3;i:280000;i:4;i:560000;}i:1;a:5:{i:0;s:1:\"8\";i:1;s:33:\"Boligrafo semi Gel 7 mm Offi-Esco\";i:2;i:2;i:3;i:1200;i:4;i:2400;}}', 562400),
+(303, '2024-07-08', 2, 1053611645, 'a:1:{i:0;a:5:{i:0;s:2:\"12\";i:1;s:30:\"Boligrafo BIC Negro 5 mm Norma\";i:2;i:10;i:3;i:1100;i:4;i:11000;}}', 11000),
+(304, '2024-07-09', 1000, 91886754, 'a:2:{i:0;a:5:{i:0;s:1:\"5\";i:1;s:29:\"Tennis Runner 39 talla Adidas\";i:2;i:1;i:3;i:229000;i:4;i:229000;}i:1;a:5:{i:0;s:1:\"4\";i:1;s:25:\"Caldo Maggi 132 gr Nestle\";i:2;i:1;i:3;i:4800;i:4;i:4800;}}', 233800);
 
 -- --------------------------------------------------------
 
@@ -446,9 +448,8 @@ ALTER TABLE `departamento`
 --
 ALTER TABLE `devolucion`
   ADD PRIMARY KEY (`id_devolucion`),
-  ADD KEY `FO_venta` (`FO_venta`,`FO_vendedor`,`FO_producto`),
-  ADD KEY `FO_producto` (`FO_producto`),
-  ADD KEY `FO_vendedor` (`FO_vendedor`);
+  ADD KEY `FO_vendedor` (`FO_vendedor`),
+  ADD KEY `FO_venta` (`FO_venta`,`FO_vendedor`) USING BTREE;
 
 --
 -- Indices de la tabla `errorh`
@@ -537,7 +538,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1243;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1244;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -549,7 +550,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `devolucion`
 --
 ALTER TABLE `devolucion`
-  MODIFY `id_devolucion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_devolucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `errorh`
@@ -585,7 +586,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=303;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
 
 --
 -- AUTO_INCREMENT de la tabla `vinculo_p_c`

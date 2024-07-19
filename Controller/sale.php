@@ -14,6 +14,15 @@
         case 'consulta':
             $veconsulta = $venta->consulta() ;
         break ;
+        case 'max':
+            $veconsulta = $venta->max() ;
+        break ;
+        case 'calculart':
+            $veconsulta = $venta->c_total() ;
+        break ;
+        case 'conteo':
+            $veconsulta = $venta->count() ;
+        break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
             $json = file_get_contents('php://input') ;
@@ -22,6 +31,8 @@
             //"productos_venta":"1,2,3","cantidad_venta":"1,1,1","subtotal":"329280",
             //"impuestos":"62720","total":"392000"}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->productos_venta) ;
+            $params->productos_venta = $estructura ;
             //Respuesta de parametros por consola
             //print_r($params) ;
             $veconsulta = $venta->insertar($params) ;
@@ -39,16 +50,27 @@
             //"productos_venta":"1,2,3","cantidad_venta":"1,1,1","subtotal":"329280",
             //"impuestos":"62720","total":"392000"}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->productos_venta) ;
+            $params->productos_venta = $estructura ;
             //parametro de prueba: &id=301
             $id = $_GET['id'] ;
             $veconsulta = $venta->editar($id, $params) ;
+        break ;
+        case 'expand':
+            //parametro de prueba: &id=301
+            $id = $_GET['id'] ;
+            $veconsulta = $venta->expand($id);
         break ;
         case 'filtrar':
             $valor = $_GET['valor'] ;
             //parametro de prueba: &valor=301 - &valor=2024-06-04 - &valor=Cesar+Avellaneda - &valor=91886754
             $veconsulta = $venta->filtrar($valor) ;
         break ;
-
+        case 'found':
+            $id = $_GET['id'] ;
+            //parametro de prueba: 301
+            $veconsulta = $venta->found($id) ;
+        break ;
     }
 
     $datosjs = json_encode($veconsulta) ;

@@ -22,12 +22,21 @@
             return $vec;
         }
 
+        public function max() {
+            $con = "SELECT * from compra WHERE id_compra = (
+            SELECT MAX(id_compra) FROM compra)";
+            $res = mysqli_query($this->conexion, $con);
+            $vec = [];
+            while ($row = mysqli_fetch_array($res)) {
+                $vec[] = $row;
+            }
+            return $vec;
+        }
+
         public function insertar($params) {
-            $ins = "INSERT INTO compra(FO_proveedor,fecha_adq,lista_prod,cantidad_adq,
-                    preciop_compra,subtotal,impuestos,total) 
-                    VALUES('$params->FO_proveedor','$params->fecha_adq','$params->lista_prod',
-                    '$params->cantidad_adq','$params->preciop_compra','$params->subtotal',
-                    '$params->impuestos','$params->total')";
+            $ins = "INSERT INTO compra(id_compra,FO_proveedor,fecha_adq,lista_prod,total) 
+                    VALUES('$params->id_compra','$params->FO_proveedor','$params->fecha_adq',
+                    '$params->lista_prod','$params->total')";
             mysqli_query( $this->conexion, $ins) or die('la compra no se ha podido almacenar');
             $vec = [];
             $vec['resultado'] = "OK";
@@ -46,14 +55,20 @@
 
         public function editar($id, $params) {
             $editar = "UPDATE compra SET FO_proveedor = '$params->FO_proveedor', fecha_adq = '$params->fecha_adq',
-                       lista_prod = '$params->lista_prod', cantidad_adq = '$params->cantidad_adq', 
-                       preciop_compra = '$params->preciop_compra', subtotal = '$params->subtotal', 
-                       impuestos = '$params->impuestos', total = '$params->total'
+                       lista_prod = '$params->lista_prod', total = '$params->total'
                        WHERE id_compra = $id";
             mysqli_query($this->conexion, $editar) or die('la compra no se ha podido actualizar');
             $vec = [];
             $vec['resultado'] = "OK";
             $vec['mensaje'] = "La compra ha sido actualizada";
+            return $vec;
+        }
+
+        public function expand($id){
+            $exp = "SELECT lista_prod from compra WHERE id_compra = $id";
+            $res = mysqli_query($this->conexion, $exp);
+            $row = mysqli_fetch_array($res);
+            $vec = unserialize($row[0]);
             return $vec;
         }
 

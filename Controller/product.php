@@ -43,6 +43,16 @@
             $id = $_GET['id'] ;
             $veconsulta = $producto->editar($id, $params) ;
         break ;
+        case 'stock':
+            //siempre activa, desactivar al realizar una prueba
+            $json = file_get_contents('php://input') ;
+            //parametros prueba json
+            //$json= '{"id_producto":"11","cantidad_producto":"15"}' ;
+            $params = json_decode($json) ;
+            //parametro de prueba: &id=11
+            $id = $_GET['id'] ;
+            $veconsulta = $producto->stock($id, $params) ;
+        break ;
         case 'filtrar':
             $valor = $_GET['valor'] ;
             //parametro de prueba: Yogurt+Durazno - 10 - Nestle

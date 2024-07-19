@@ -21,6 +21,8 @@
             //$json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
             //"correo":"caro_nestor_1987@gmail.com","rol":"Gestor de Bodega","caja":""}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->lista_dev) ;
+            $params->lista_dev = $estructura ;
             //Respuesta de parametros por consola
             //print_r($params) ;
             $veconsulta = $devolucion->insertar($params) ;
@@ -37,16 +39,22 @@
             //$json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
             //"correo":"caro_nestor_1987@gmail.com","rol":"Soporte Tecnico","caja":""}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->lista_dev) ;
+            $params->lista_dev = $estructura ;
             //parametro de prueba: &id=3
             $id = $_GET['id'] ;
             $veconsulta = $devolucion->editar($id, $params) ;
+        break ;
+        case 'expand':
+            //parametro de prueba: &id=301
+            $id = $_GET['id'] ;
+            $veconsulta = $devolucion->expand($id);
         break ;
         case 'filtrar':
             $valor = $_GET['valor'] ;
             //parametro de prueba: Nestor+Caro - Eduardo+Castro
             $veconsulta = $devolucion->filtrar($valor) ;
         break ;
-
     }
 
     $datosjs = json_encode($veconsulta) ;

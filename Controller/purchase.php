@@ -14,6 +14,9 @@
         case 'consulta':
             $veconsulta = $compra->consulta() ;
         break ;
+        case 'max':
+            $veconsulta = $compra->max() ;
+        break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
             $json = file_get_contents('php://input') ;
@@ -22,6 +25,8 @@
             //"lista_prod":"7,9","cantidad_adq":"2,2","preciop_compra":"280000,340000",
             //"subtotal":"10416000","impuestos":"1984000","total":"12400000"}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->lista_prod) ;
+            $params->lista_prod = $estructura ;
             //Respuesta de parametros por consola
             //print_r($params) ;
             $veconsulta = $compra->insertar($params) ;
@@ -39,9 +44,16 @@
             //"lista_prod":"7,9","cantidad_adq":"2,2","preciop_compra":"280000,340000",
             //"subtotal":"1041600","impuestos":"198400","total":"1240000"}' ;
             $params = json_decode($json) ;
+            $estructura = serialize($params->lista_prod) ;
+            $params->lista_prod = $estructura ;
             //parametro de prueba: &id=1239
             $id = $_GET['id'] ;
             $veconsulta = $compra->editar($id, $params) ;
+        break ;
+        case 'expand':
+            //parametro de prueba: &id=1239
+            $id = $_GET['id'] ;
+            $veconsulta = $compra->expand($id);
         break ;
         case 'filtrar':
             $valor = $_GET['valor'] ;

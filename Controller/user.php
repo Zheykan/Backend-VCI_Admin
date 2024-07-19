@@ -14,6 +14,9 @@
         case 'consulta':
             $veconsulta = $usuario->consulta() ;
         break ;
+        case 'conteo':
+            $veconsulta = $usuario->count() ;
+        break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
             $json = file_get_contents('php://input') ;
@@ -36,7 +39,7 @@
             //parametros prueba json
             //$json= '{"nombre":"Nestor Caro","contrasenia":"456234","telefono":"3204892234",
             //"correo":"caro_nestor_1987@gmail.com","rol":"4","caja":""}' ;
-            //$params = json_decode($json) ;
+            $params = json_decode($json) ;
             //parametro de prueba: &id=3
             $id = $_GET['id'] ;
             $veconsulta = $usuario->editar($id, $params) ;
@@ -45,6 +48,11 @@
             $valor = $_GET['valor'] ;
             //parametro de prueba: Nestor+Caro - Eduardo+Castro
             $veconsulta = $usuario->filtrar($valor) ;
+        break ;
+        case 'restore':
+            $valor = $_GET['valor'] ;
+            //parametro de prueba: Nestor+Caro - Eduardo+Castro
+            $veconsulta = $usuario->compare($valor) ;
         break ;
 
     }
