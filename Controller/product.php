@@ -14,6 +14,9 @@
         case 'consulta':
             $veconsulta = $producto->consulta() ;
         break ;
+        case 'maximo':
+            $veconsulta = $producto->max() ;
+        break ;
         case 'insertar':
             //siempre activa, desactivar al realizar una prueba
             $json = file_get_contents('php://input') ;

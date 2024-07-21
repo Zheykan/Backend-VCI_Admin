@@ -22,6 +22,15 @@
             }
             return $vec;
         }
+        public function max() {
+            $con = "SELECT MAX(id_producto) FROM producto";
+            $res = mysqli_query($this->conexion, $con);
+            $vec = [];
+            while ($row = mysqli_fetch_array($res)) {
+                $vec[] = $row;
+            }
+            return $vec;
+        }
 
         public function insertar($params) {
             $ins = "INSERT INTO producto(id_producto,nombre,FO_marca,cantidad_producto,medida,FO_unidad,precio_venta,fecha_venc)
